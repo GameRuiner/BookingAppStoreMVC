@@ -17,10 +17,17 @@ namespace BookingAppStore.Controllers
         {
             var books = db.Books;
             ViewBag.Books = books;
+            ViewBag.Authors = db.Books.Select(s => s.Author).Distinct();
             return View();
         }
 
-        [HttpPost]
+        public ActionResult BestBook()
+        {
+            Book book = db.Books.First();
+            return PartialView(book);
+        }
+
+        //[HttpPost]
         public ActionResult BookSearch(string name)
         {
             var allbooks = db.Books.Where(a => a.Author.Contains(name)).ToList();

@@ -1,9 +1,29 @@
 ﻿@{
     ViewBag.Title = "Книжный магазин";
 }
-@using (Ajax.BeginForm("BookSearch", new AjaxOptions { UpdateTargetId = "results" }))
+@using (Ajax.BeginForm("BookSearch", new AjaxOptions
+{
+    UpdateTargetId = "results",
+    LoadingElementId = "loading",
+    LoadingElementDuration = 300,
+    Confirm = "Выполнить AJAX запрос?",
+    InsertionMode = InsertionMode.InsertBefore
+}))
 {
     <input type="text" name="name" />
     <input type="submit" value="Поиск" />
 }
 <div id="results"></div>
+
+<div id="loading" style="display:none; color:red; font-weight:bold;">
+    <p>Идет загрузка...</p>
+</div>
+
+<div id="bestbook">
+    @Ajax.ActionLink("Лучшая книга", "BestBook", new AjaxOptions { UpdateTargetId = "bestbook"})
+</div>
+
+@foreach (string s in ViewBag.Authors)
+{
+    @Ajax.ActionLink(s, "BookSearch", new { name = s}, new AjaxOptions { UpdateTargetId = "results"})
+}
