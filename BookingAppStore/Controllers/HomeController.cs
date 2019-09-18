@@ -20,6 +20,13 @@ namespace BookingAppStore.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult BookSearch(string name)
+        {
+            var allbooks = db.Books.Where(a => a.Author.Contains(name)).ToList();
+            return PartialView(allbooks);
+        }
+
         public string GetContext()
         {
             string browser = HttpContext.Request.Browser.Browser;

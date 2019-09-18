@@ -13,5 +13,7 @@
         </ul>
     </nav>
     @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    <script src='@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")'></script>
 </body>
 </html>
